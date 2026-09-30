@@ -768,20 +768,20 @@ int
 ftp_cmd_SIZE(ftp_env_t *env, const char* arg) {
   char pathbuf[PATH_MAX];
   struct stat st = {0};
+  size_t size;
 
   if(!arg[0]) {
     return ftp_active_printf(env, "501 Usage: SIZE <FILENAME>\r\n");
   }
 
   ftp_abspath(env, pathbuf, arg);
-
-  if(env->self2elf) {
-    st.st_size = self_get_elfsize(pathbuf);
+  if(stat(pathbuf, &st)) {
+    return ftp_active_printf(env, "550 No such file or directory\r\n");
   }
 
-  if(!st.st_size) {
-    if(stat(pathbuf, &st)) {
-      return ftp_perror(env);
+  if(env->self2elf) {
+    if((size=self_get_elfsize(pathbuf))) {
+      st.st_size = size;
     }
   }
 
