@@ -84,7 +84,7 @@ main(int argc, char* argv[]) {
 
   syscall(SYS_thr_set_name, -1, "ftpsrv.elf");
 
-  while((c=getopt(argc, argv, "p:qh")) != -1) {
+  while((c=getopt(argc, argv, "p:qh")) != (char)-1) {
     switch(c) {
     case 'p':
       port = atoi(optarg);

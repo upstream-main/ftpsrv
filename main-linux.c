@@ -28,7 +28,7 @@ main(int argc, char* argv[]) {
   int notify_user = 1;
   char c;
 
-  while((c=getopt(argc, argv, "p:h")) != -1) {
+  while((c=getopt(argc, argv, "p:h")) != (char)-1) {
     switch(c) {
     case 'p':
       port = atoi(optarg);

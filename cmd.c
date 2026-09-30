@@ -292,7 +292,7 @@ int
 ftp_cmd_CHMOD(ftp_env_t *env, const char* arg) {
   char pathbuf[PATH_MAX];
   mode_t mode = 0;
-  char* ptr;
+  const char* ptr;
 
   if(!arg[0] || !(ptr=strstr(arg, " "))) {
     return ftp_active_printf(env, "501 Usage: CHMOD <MODE> <PATH>\r\n");
